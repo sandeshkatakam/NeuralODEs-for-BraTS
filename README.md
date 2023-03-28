@@ -1,7 +1,8 @@
 # NeuralODEs for Brain Tumor Segmentation
 
-Implementation of "A Neural Ordinary Differential Equation Model for Visualizing Deep Neural Network Behaviors in Multi-Parametric MRI based Glioma Segmentation"
-
+Implementation of "A Neural Ordinary Differential Equation Model for Visualizing Deep Neural Network Behaviors in Multi-Parametric MRI based Glioma Segmentation"  
+![Link to the paper](https://arxiv.org/abs/2203.00628)  
+  
 NeuralODEs are new class of deep learning architectures aimed towards robustness and better explainability of Deep learning models. These are continuous time Deep learning architectures, a generalization of their discrete models (ResNets).   
 
 ## Basic Navigation:
