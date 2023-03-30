@@ -28,7 +28,7 @@ The aim of this project is to improve explainability of U-Net models using Conti
     * `epochs`: The training epochs to run
     * `resume` : Model Trianing resume
     * `drop_rate` : Drop-out Rate
-    * `data` : Label data type (Default = complete)
+    * `data` : Label data type.Available options: complete, core, enhancing (default = complete)
     * `img_root`: The directory containing the training image dataset
     * `label_root`: The directory containing the training label dataset
     * `output_root` : The directory containing the result predictions
