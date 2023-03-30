@@ -28,9 +28,12 @@ L3 = 150    # Enhancing Tumor
 
 
 # MRI Label Channels Description
-# 0: Background         / 1: Necrotic and non-enhancing tumor (paper, 1+3)
-# 2: edema (paper, 2)   / 3: Enhancing tumor (paper, 4)
-# 
+# 0: Background          
+# 1: Necrotic and non-enhancing tumor (paper, 1+3)
+# 2: edema (paper, 2) 
+# 3: Enhancing tumor (paper, 4)
+
+
 # <Input>           <Prediction>
 # FLAIR             Complete(1,2,3)
 # FLAIR             Core(1,3)
@@ -42,6 +45,12 @@ L3 = 150    # Enhancing Tumor
 
 
 def nii2jpg_img(img_path, output_root):
+    """
+    converts the .nii image to .jpg image and saves it in the output directory
+    Args:
+    - img_path: MRI images directory path
+    - output_root: Output directory where the jpg processed images are saved
+    """
     img_name = (img_path.split('/')[-1]).split('.')[0]
     output_path = os.path.join(output_root, img_name)
     try:
@@ -75,6 +84,7 @@ def nii2jpg_img(img_path, output_root):
 
 def nii2jpg_label(img_path, output_root):
     """
+    converts the labels for images in  nii format to jpg format
     Arguments:
     img_path: Path of the .nii image from the data folder
     output_root: Output path of the folder where the images are saved
@@ -108,6 +118,10 @@ for path in os.listdir(IMG_ROOT):
     if path[0] == '.':
         continue
     nii2jpg_img(os.path.join(IMG_ROOT,path), IMG_OUTPUT_ROOT)
+
+
+
+    
 '''
 for path in os.listdir(LABEL_ROOT):
     print(path)

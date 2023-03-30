@@ -1,14 +1,14 @@
 #########################################
-#                                       #
-#                                       #
-#       U-NET Model Architecture        #
-#                                       #
-#                                       #
+##                                     ##
+##                                     ##
+##      U-NET Model Architecture       ##
+##                                     ##
+##                                     ##
 #########################################
 import pdb
+
 import torch
 import torch.nn as nn
-
 from torch.nn.functional import softmax
 
 

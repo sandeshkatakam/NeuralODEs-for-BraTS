@@ -15,3 +15,32 @@ NeuralODEs are new class of deep learning architectures aimed towards robustness
 * ``
 
 The aim of this project is to improve explainability of U-Net models using Continuous time models like NeuralODEs and visualizing the deep neural networks behavious across time steps
+
+## Training the Model on BraTS Dataset:
+```python
+python -m trainer.py
+```
+
+## Dataset:
+
+Multi-Modal MRI Dataset from BraTS 2020 Challenge  
+`Dataset specs:`
+* File : One file has a Multi-Modal MRI Data of one subject
+* File Format: All files are .nii.gz files can be loaded using nibabel
+* Image dimensions: 240(slice width) x 240(slice Height) x 155 (number of slices) x 4(Number of modalities i.e. T1, T2, FLAIR, T1ce)
+* Labels:
+    * `Ch 0`: Background
+    * `Ch 1`: Necrotic and Non-Enhancing Tumor
+    * `Ch 2`: Edema
+    * `Ch 3`: Enhancing Tumor
+
+## Folder Structure of Repository:
+
+## References:  
+### BraTS Dataset References:
+[1] [B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, J. Kirby, et al. "The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)", IEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015) DOI: 10.1109/TMI.2014.2377694](https://pubmed.ncbi.nlm.nih.gov/25494501/)   
+[2] [S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J.S. Kirby, et al., "Advancing The Cancer Genome Atlas glioma MRI collections with expert segmentation labels and radiomic features", Nature Scientific Data, 4:170117 (2017) DOI: 10.1038/sdata.2017.117](https://pubmed.ncbi.nlm.nih.gov/28872634/)  
+[3]  [S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempfler, A. Crimi, et al., "Identifying the Best Machine Learning Algorithms for Brain Tumor Segmentation, Progression Assessment, and Overall Survival Prediction in the BRATS Challenge", arXiv preprint arXiv:1811.02629 (2018)](https://arxiv.org/abs/1811.02629)
+
+### Model Citations:  
+[4] [A Neural Ordinary Differential Equation Model for Visualizing Deep Neural Network Behaviors in Multi-Parametric MRI based Glioma Segmentation](https://arxiv.org/abs/2203.00628) 

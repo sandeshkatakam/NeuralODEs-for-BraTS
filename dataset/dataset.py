@@ -1,28 +1,29 @@
-import glob
-import torch
-import pdb
-import os
-import numbers
-import numpy as np
-import math
-import PIL
-import cv2
-import random
 import collections
+import glob
+import math
+import numbers
+import os
+import pdb
+import random
+
+import cv2
+import numpy as np
+import PIL
+import torch
 import torch.utils.data
 import torchvision
 import torchvision.transforms as transforms
+
 try:
     import accimage
 except ImportError:
     accimage = None
 
-from torch.utils.data import DataLoader, Dataset
-from PIL import Image, PILLOW_VERSION
+import config
+from PIL import PILLOW_VERSION, Image
 from scipy.ndimage.filters import gaussian_filter
 from scipy.ndimage.interpolation import map_coordinates
-
-import config
+from torch.utils.data import DataLoader, Dataset
 
 
 def data_loader(args, mode):

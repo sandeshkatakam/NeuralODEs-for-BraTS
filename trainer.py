@@ -95,8 +95,7 @@ if __name__ == "__main__":
     parser.add_argument("--resume", type=bool, default=False,
                         help="Model Trianing resume.")
     parser.add_argument("--model", type=str, default='pspnet_res50',
-                        help="Model Name (unet, pspnet_squeeze, pspnet_res50,\
-                        pspnet_res34, pspnet_res50, deeplab)")
+                        help="Model Name (unet, neural_ode_convnet, neural_ode_unet)")
     parser.add_argument("--in_channel", type=int, default=1,
                         help="A number of images to use for input")
     parser.add_argument("--batch_size", type=int, default=80,
