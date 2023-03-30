@@ -1,6 +1,6 @@
 # NeuralODEs for Brain Tumor Segmentation
 
-Implementation of "A Neural Ordinary Differential Equation Model for Visualizing Deep Neural Network Behaviors in Multi-Parametric MRI based Glioma Segmentation"  
+Implementation of "A Neural Ordinary Differential Equation Model for Visualizing Deep Neural Network Behaviors in Multi-Parametric MRI based Glioma Segmentation" and Bencharmking Segmentation Models on BraTS 2020 data.
 [Link to the paper](https://arxiv.org/abs/2203.00628)  
   
 NeuralODEs are new class of deep learning architectures aimed towards robustness and better explainability of Deep learning models. These are continuous time Deep learning architectures, a generalization of their discrete models (ResNets).   
@@ -52,19 +52,22 @@ python -m trainer.py
 ## Dataset:
 
 Multi-Modal MRI Dataset from BraTS 2020 Challenge  
+
 `Dataset specs:`
-* File : One file has a Multi-Modal MRI Data of one subject
-* File Format: All files are .nii.gz files can be loaded using nibabel
-* Image dimensions: 240(slice width) x 240(slice Height) x 155 (number of slices) x 4(Number of modalities i.e. T1, T2, FLAIR, T1ce)
-* Labels:
+
+* **File** : One file has a Multi-Modal MRI Data of one subject
+* **File Format**: All files are .nii.gz files can be loaded using nibabel
+* **Image dimensions**: 240(slice width) x 240(slice Height) x 155 (number of slices) x 4(Number of modalities i.e. T1, T2, FLAIR, T1ce)
+* **Labels**:
     * `Ch 0`: Background
     * `Ch 1`: Necrotic and Non-Enhancing Tumor
     * `Ch 2`: Edema
     * `Ch 3`: Enhancing Tumor
-<br>
 
+<br>
+  
 ## Models:
-* U-Net model  
+* **U-Net model**  
 ```bash
 models/unet.py
 ```
@@ -78,13 +81,13 @@ models/unet.py
 <br>
 <br>
 
-* NeuralODE U-Net Model
+* **NeuralODE U-Net Model**
 ```bash
 models/neural_ode_unet.py
 ```
-* NeuralODE ConvNet Model
+* **U-NODE Model**
 ```bash
-models/neural_ode_convnet.py
+models/unode_model.py
 ```
 <br>
 
@@ -97,13 +100,13 @@ models/neural_ode_convnet.py
  ┃ ┣ preprocess.py       ## Preprocessing script for the dataset
  ┃ ┗ __init__.py
  ┣ models
- ┃ ┣ neural_ode_convnet.py             ## contains NeuralODE Convolutional Net Architecture code
+ ┃ ┣ unode_model.py             ## contains U-Node Model Architecture
  ┃ ┣ neural_ode_unet.py          ## contains NeuralODE U-Net Model Architecture code
  ┃ ┣ unet.py        ## contains U-Net Model architecture code
  ┃ ┗ __init__.py
  ┣ output
  ┣ config.py
- ┣ NeuralODE for Brain Tumor Segmentation on BraTS dataset.ipynb
+ ┣ Example-Notebooks      ## Folder contains Example Notebooks of Model Training and Inference
  ┣ README.md
  ┣ test.py           ## Contains Test scripts
  ┣ trainer.py        ## used to train the model by running this script
@@ -121,4 +124,5 @@ models/neural_ode_convnet.py
 [3]  [S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempfler, A. Crimi, et al., "Identifying the Best Machine Learning Algorithms for Brain Tumor Segmentation, Progression Assessment, and Overall Survival Prediction in the BRATS Challenge", arXiv preprint arXiv:1811.02629 (2018)](https://arxiv.org/abs/1811.02629)
 
 ### Model Citations:  
-[4] [A Neural Ordinary Differential Equation Model for Visualizing Deep Neural Network Behaviors in Multi-Parametric MRI based Glioma Segmentation](https://arxiv.org/abs/2203.00628) 
+[4] [A Neural Ordinary Differential Equation Model for Visualizing Deep Neural Network Behaviors in Multi-Parametric MRI based Glioma Segmentation](https://arxiv.org/abs/2203.00628)   
+[5] [Neural Ordinary Differential Equations for Semantic Segmentation of Individual Colon Glands](https://arxiv.org/abs/1910.10470)
