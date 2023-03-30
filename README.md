@@ -35,6 +35,12 @@ The aim of this project is to improve explainability of U-Net models using Conti
     * `ckpt_root` : The directory containing the checkpoint files
     <br>
     <br>
+
+### Installing Dependencies:
+```bash
+pip install requirements.txt
+```
+<br>
 ### Training the Model on BraTS Dataset:
 ```bash
 python -m trainer.py
@@ -100,6 +106,9 @@ models/neural_ode_convnet.py
  ┣ test.py           ## Contains Test scripts
  ┣ trainer.py        ## used to train the model by running this script
  ┗ utils.py          ## contains helper Functions
+ ┣ requirements.txt        ## Dependencies needed for training the model
+ ┗ utils.py          ## contains helper Functions
+ 
 ```
 <br>
 
