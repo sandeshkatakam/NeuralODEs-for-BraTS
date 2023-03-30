@@ -40,8 +40,10 @@ The aim of this project is to improve explainability of U-Net models using Conti
 ```bash
 pip install requirements.txt
 ```
-<br>
+<br> 
+
 ### Training the Model on BraTS Dataset:
+
 ```bash
 python -m trainer.py
 ```
