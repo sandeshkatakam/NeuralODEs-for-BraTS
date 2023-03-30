@@ -15,11 +15,15 @@ NeuralODEs are new class of deep learning architectures aimed towards robustness
 * ``
 
 The aim of this project is to improve explainability of U-Net models using Continuous time models like NeuralODEs and visualizing the deep neural networks behavious across time steps
+<br>
+<br>
 
-## Training the Model on BraTS Dataset:
+## Usage
+### Training the Model on BraTS Dataset:
 ```bash
 python -m trainer.py
 ```
+<br> 
 
 ## Dataset:
 
@@ -33,6 +37,7 @@ Multi-Modal MRI Dataset from BraTS 2020 Challenge
     * `Ch 1`: Necrotic and Non-Enhancing Tumor
     * `Ch 2`: Edema
     * `Ch 3`: Enhancing Tumor
+<br>
 
 ## Models:
 * U-Net model  
@@ -57,10 +62,10 @@ models/neural_ode_unet.py
 ```bash
 models/neural_ode_convnet.py
 ```
+<br>
 
 ## Folder Structure of Repository:
 
-NeuralODEs-for-brain-tumor-segmentation
 ```
  ┣ checkpoint # contains the checkpoint files from the training process
  ┣ dataset
@@ -80,6 +85,8 @@ NeuralODEs-for-brain-tumor-segmentation
  ┣ trainer.py        ## used to train the model by running this script
  ┗ utils.py          ## contains helper Functions
 ```
+<br>
+
 ## References:  
 ### BraTS Dataset References:
 [1] [B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, J. Kirby, et al. "The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)", IEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015) DOI: 10.1109/TMI.2014.2377694](https://pubmed.ncbi.nlm.nih.gov/25494501/)   
