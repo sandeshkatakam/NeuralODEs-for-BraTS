@@ -5,13 +5,20 @@ import pdb
 import torch
 import torch.backends.cudnn as cudnn
 
-from config import *
+from config import *  # Importing Data Handling parameters
 from dataset import *
 from models import *
 from utils import *
+import json
+
+with open("./config.json") as f:
+    params = json.load(f)
 
 
-def train(args):
+
+
+
+def train(**params):
 
     # Variables and logger Init
     device = config.device
@@ -89,33 +96,33 @@ def train(args):
             best_score = score
             print("Saving...")
 
+################### Training Process using Argument Parser #########################################
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser(description=__doc__)
+#     parser.add_argument("--resume", type=bool, default=False,
+#                         help="Model Trianing resume.")
+#     parser.add_argument("--model", type=str, default='pspnet_res50',
+#                         help="Model Name (unet, neural_ode_convnet, neural_ode_unet)")
+#     parser.add_argument("--in_channel", type=int, default=1,
+#                         help="A number of images to use for input")
+#     parser.add_argument("--batch_size", type=int, default=80,
+#                         help="The batch size to load the data")
+#     parser.add_argument("--epochs", type=int, default=30,
+#                         help="The training epochs to run.")
+#     parser.add_argument("--drop_rate", type=float, default=0.1,
+#                         help="Drop-out Rate")
+#     parser.add_argument("--lr", type=float, default=0.001,
+#                         help="Learning rate to use in training")
+#     parser.add_argument("--data", type=str, default="complete",
+#                         help="Label data type.")
+#     parser.add_argument("--img_root", type=str, default="../../data/train/image_FLAIR",
+#                         help="The directory containing the training image dataset.")
+#     parser.add_argument("--label_root", type=str, default="../../data/train/label",
+#                         help="The directory containing the training label datgaset")
+#     parser.add_argument("--output_root", type=str, default="./output/prediction",
+#                         help="The directory containing the result predictions")
+#     parser.add_argument("--ckpt_root", type=str, default="./checkpoint",
+#                         help="The directory containing the checkpoint files")
+#     args = parser.parse_args()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--resume", type=bool, default=False,
-                        help="Model Trianing resume.")
-    parser.add_argument("--model", type=str, default='pspnet_res50',
-                        help="Model Name (unet, neural_ode_convnet, neural_ode_unet)")
-    parser.add_argument("--in_channel", type=int, default=1,
-                        help="A number of images to use for input")
-    parser.add_argument("--batch_size", type=int, default=80,
-                        help="The batch size to load the data")
-    parser.add_argument("--epochs", type=int, default=30,
-                        help="The training epochs to run.")
-    parser.add_argument("--drop_rate", type=float, default=0.1,
-                        help="Drop-out Rate")
-    parser.add_argument("--lr", type=float, default=0.001,
-                        help="Learning rate to use in training")
-    parser.add_argument("--data", type=str, default="complete",
-                        help="Label data type.")
-    parser.add_argument("--img_root", type=str, default="../../data/train/image_FLAIR",
-                        help="The directory containing the training image dataset.")
-    parser.add_argument("--label_root", type=str, default="../../data/train/label",
-                        help="The directory containing the training label datgaset")
-    parser.add_argument("--output_root", type=str, default="./output/prediction",
-                        help="The directory containing the result predictions")
-    parser.add_argument("--ckpt_root", type=str, default="./checkpoint",
-                        help="The directory containing the checkpoint files")
-    args = parser.parse_args()
-
-    train(args)
+#     train(args)

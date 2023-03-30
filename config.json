@@ -1,0 +1,14 @@
+{
+    "batch_size" : 80,
+    "lr": 0.001,
+    "model": "unet",
+    "in_channel": 1,
+    "epochs": 30,
+    "resume": "False", 
+    "drop_rate": 0.1,
+    "data": "complete",
+    "img_root":"../../data/train/image_FLAIR",
+    "label_root":"../../data/train/label",
+    "output_root":"./output/predictions",
+    "ckpt_root": "./checkpoint"
+}
