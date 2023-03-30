@@ -19,6 +19,23 @@ The aim of this project is to improve explainability of U-Net models using Conti
 <br>
 
 ## Usage
+* `config.json`: Contains the Hyperparameters used for the model training procedure.  
+* Edit the `config.json` file for changing the model parameters and further experimentation. 
+* `config.json` contains the following Hyperparameters by default: 
+    * `batch_size`: The batch size to load the data
+    * `lr` : Learning rate to use in training
+    * `model` : Model Name ( available options: unet, neural_ode_convnet, neural_ode_unet)
+    * `in_channel` : A number of images to use for input
+    * `epochs`: The training epochs to run
+    * `resume` : Model Trianing resume
+    * `drop_rate` : Drop-out Rate
+    * `data` : Label data type (Default = complete)
+    * `img_root`: The directory containing the training image dataset
+    * `label_root`: The directory containing the training label dataset
+    * `output_root` : The directory containing the result predictions
+    * `ckpt_root` : The directory containing the checkpoint files
+    <br>
+    <br>
 ### Training the Model on BraTS Dataset:
 ```bash
 python -m trainer.py
