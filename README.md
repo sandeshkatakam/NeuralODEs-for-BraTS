@@ -17,7 +17,7 @@ NeuralODEs are new class of deep learning architectures aimed towards robustness
 The aim of this project is to improve explainability of U-Net models using Continuous time models like NeuralODEs and visualizing the deep neural networks behavious across time steps
 
 ## Training the Model on BraTS Dataset:
-```python
+```bash
 python -m trainer.py
 ```
 
@@ -34,8 +34,52 @@ Multi-Modal MRI Dataset from BraTS 2020 Challenge
     * `Ch 2`: Edema
     * `Ch 3`: Enhancing Tumor
 
+## Models:
+* U-Net model  
+```bash
+models/unet.py
+```
+<div align = "center">
+    <img src = "https://i.imgur.com/OXtVFvT.png">
+    <br>
+    <br>
+    <em align = "center">Fig Description: U-Net Diagram</em>
+    <br>
+</div>
+<br>
+<br>
+
+* NeuralODE U-Net Model
+```bash
+models/neural_ode_unet.py
+```
+* NeuralODE ConvNet Model
+```bash
+models/neural_ode_convnet.py
+```
+
 ## Folder Structure of Repository:
 
+NeuralODEs-for-brain-tumor-segmentation
+```
+ ┣ checkpoint # contains the checkpoint files from the training process
+ ┣ dataset
+ ┃ ┣ dataset.py          ## used to load the preprocessed data
+ ┃ ┣ preprocess.py       ## Preprocessing script for the dataset
+ ┃ ┗ __init__.py
+ ┣ models
+ ┃ ┣ neural_ode_convnet.py             ## contains NeuralODE Convolutional Net Architecture code
+ ┃ ┣ neural_ode_unet.py          ## contains NeuralODE U-Net Model Architecture code
+ ┃ ┣ unet.py        ## contains U-Net Model architecture code
+ ┃ ┗ __init__.py
+ ┣ output
+ ┣ config.py
+ ┣ NeuralODE for Brain Tumor Segmentation on BraTS dataset.ipynb
+ ┣ README.md
+ ┣ test.py           ## Contains Test scripts
+ ┣ trainer.py        ## used to train the model by running this script
+ ┗ utils.py          ## contains helper Functions
+```
 ## References:  
 ### BraTS Dataset References:
 [1] [B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, J. Kirby, et al. "The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)", IEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015) DOI: 10.1109/TMI.2014.2377694](https://pubmed.ncbi.nlm.nih.gov/25494501/)   
