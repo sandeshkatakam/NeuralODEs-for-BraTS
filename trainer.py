@@ -1,4 +1,5 @@
 import argparse
+import json
 import logging
 import pdb
 
@@ -9,12 +10,9 @@ from config import *  # Importing Data Handling parameters
 from dataset import *
 from models import *
 from utils import *
-import json
 
 with open("./config.json") as f:
     params = json.load(f)
-
-
 
 
 
@@ -26,22 +24,22 @@ def train(**params):
     get_logger()
 
     # Data Load
-    trainloader = data_loader(args, mode='train')
-    validloader = data_loader(args, mode='valid')
+    trainloader = data_loader(**params, mode='train')
+    validloader = data_loader(**params, mode='valid')
 
     # Model Load
     net, optimizer, best_score, start_epoch =\
-        load_model(args, class_num=config.class_num, mode='train')
-    log_msg = '\n'.join(['%s Train Start'%(args.model)])
+        load_model(**params, class_num=config.class_num, mode='train')
+    log_msg = '\n'.join(['%s Train Start'%(params["model"])])
     logging.info(log_msg)
 
-    for epoch in range(start_epoch, start_epoch+args.epochs):
+    for epoch in range(start_epoch, start_epoch+params["epochs"]):
 
         # Train Model
         print('\n\n\nEpoch: {}\n<Train>'.format(epoch))
         net.train(True)
         loss = 0
-        lr = args.lr * (0.5 ** (epoch // 4))
+        lr = params["lr"] * (0.5 ** (epoch // 4))
         for param_group in optimizer.param_groups:
             param_group["lr"] = lr
         torch.set_grad_enabled(True)
@@ -92,7 +90,7 @@ def train(**params):
         score = 1 - loss
         if score > best_score:
             checkpoint = Checkpoint(net, optimizer, epoch, score)
-            checkpoint.save(os.path.join(args.ckpt_root, args.model+'.tar'))
+            checkpoint.save(os.path.join(params["ckpt_root"], params["model"]+'.tar'))
             best_score = score
             print("Saving...")
 

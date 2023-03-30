@@ -26,28 +26,28 @@ from scipy.ndimage.interpolation import map_coordinates
 from torch.utils.data import DataLoader, Dataset
 
 
-def data_loader(args, mode):
+def data_loader(**params, mode):
     # Data Flag Check
-    if args.data == 'complete' or args.data == 'core' or args.data == 'enhancing':
+    if params["data"] == 'complete' or params["data"] == 'core' or params["data"] == 'enhancing':
         pass
     else:
-        raise ValueError('args.data ERROR')
+        raise ValueError('params["data"] ERROR')
 
     # Mode Flag Check 
     if mode == 'train':
         shuffle = True
-        dataset = TrainSet(args)
+        dataset = TrainSet(**params)
     elif mode == 'valid':
         shuffle = False
-        dataset = ValidSet(args)
+        dataset = ValidSet(**params)
     elif mode == 'test':
         shuffle = False
-        dataset = TestSet(args)
+        dataset = TestSet(**params)
     else:
         raise ValueError('data_loader mode ERROR')
 
     dataloader = DataLoader(dataset,
-                            batch_size=args.batch_size,
+                            batch_size=params["batch_size"],
                             num_workers=os.cpu_count(),
                             shuffle=shuffle,
                             drop_last=True)
@@ -55,12 +55,12 @@ def data_loader(args, mode):
 
 
 class TrainSet(torch.utils.data.Dataset):
-    def __init__(self, args):
-        self.data = args.data
-        self.img_root = args.img_root
+    def __init__(self, **params):
+        self.data = params["data"]
+        self.img_root = params["img_root"]
         self.img_path1 = [] # tumor ratio > 5%
         self.img_path2 = [] # tumor ratio < 5%
-        self.label_root = args.label_root
+        self.label_root = params["label_root"]
         self.label_path1 = []
         self.label_path2 = []
 
@@ -165,11 +165,11 @@ class TrainSet(torch.utils.data.Dataset):
 
 
 class ValidSet(torch.utils.data.Dataset):
-    def __init__(self, args):
-        self.data = args.data
-        self.img_root = args.img_root
+    def __init__(self, **params):
+        self.data = params["data"]
+        self.img_root = params["img_root"]
         self.img_path = []
-        self.label_root = args.label_root
+        self.label_root = params["label_root"]
         self.label_path = []
         self.totensor = transforms.ToTensor()
 
@@ -214,9 +214,9 @@ class ValidSet(torch.utils.data.Dataset):
 
 
 class TestSet(torch.utils.data.Dataset):
-    def __init__(self, args):
-        self.data = args.data
-        self.img_root = args.img_root
+    def __init__(self, params):
+        self.data = params["data"]
+        self.img_root = params["img_root"]
         self.img_path = []
         self.totensor = transforms.ToTensor()
 
