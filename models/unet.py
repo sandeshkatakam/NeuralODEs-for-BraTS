@@ -12,38 +12,42 @@ import torch.nn as nn
 from torch.nn.functional import softmax
 
 
-def conv3x3(in_c, out_c, kernel_size=3, stride=1, padding=1,
-            bias=True, useBN=False, drop_rate=0):
+def conv3x3(
+    in_c, out_c, kernel_size=3, stride=1, padding=1, bias=True, useBN=False, drop_rate=0
+):
     if useBN:
         return nn.Sequential(
-                nn.ReflectionPad2d(padding),
-                nn.Conv2d(in_c, out_c, kernel_size, stride, padding=0, bias=bias),
-                nn.BatchNorm2d(out_c),
-                nn.Dropout2d(p=drop_rate),
-                nn.ReLU(inplace=True),
-                nn.ReflectionPad2d(padding),
-                nn.Conv2d(out_c, out_c, kernel_size, stride, padding=0, bias=bias),
-                nn.BatchNorm2d(out_c),
-                nn.Dropout2d(p=drop_rate),
-                nn.ReLU(inplace=True))
+            nn.ReflectionPad2d(padding),
+            nn.Conv2d(in_c, out_c, kernel_size, stride, padding=0, bias=bias),
+            nn.BatchNorm2d(out_c),
+            nn.Dropout2d(p=drop_rate),
+            nn.ReLU(inplace=True),
+            nn.ReflectionPad2d(padding),
+            nn.Conv2d(out_c, out_c, kernel_size, stride, padding=0, bias=bias),
+            nn.BatchNorm2d(out_c),
+            nn.Dropout2d(p=drop_rate),
+            nn.ReLU(inplace=True),
+        )
     else:
         return nn.Sequential(
-                nn.ReflectionPad2d(padding),
-                nn.Conv2d(in_c, out_c, kernel_size, stride, padding=0, bias=bias),
-                nn.Dropout2d(p=drop_rate),
-                nn.ReLU(),
-                nn.ReflectionPad2d(padding),
-                nn.Conv2d(out_c, out_c, kernel_size, stride, padding=0, bias=bias),
-                nn.Dropout2d(p=drop_rate),
-                nn.ReLU())
+            nn.ReflectionPad2d(padding),
+            nn.Conv2d(in_c, out_c, kernel_size, stride, padding=0, bias=bias),
+            nn.Dropout2d(p=drop_rate),
+            nn.ReLU(),
+            nn.ReflectionPad2d(padding),
+            nn.Conv2d(out_c, out_c, kernel_size, stride, padding=0, bias=bias),
+            nn.Dropout2d(p=drop_rate),
+            nn.ReLU(),
+        )
 
 
 def upsample(in_c, out_c, bias=True, drop_rate=0):
-	return nn.Sequential(
-        #nn.ReflectionPad2d(1),
-		nn.ConvTranspose2d(in_c, out_c, 4, 2, 1, bias=bias),
+    return nn.Sequential(
+        # nn.ReflectionPad2d(1),
+        nn.ConvTranspose2d(in_c, out_c, 4, 2, 1, bias=bias),
         nn.Dropout2d(p=drop_rate),
-        nn.ReLU())
+        nn.ReLU(),
+    )
 
 
 class UNet(nn.Module):
@@ -62,10 +66,12 @@ class UNet(nn.Module):
         self.conv2m = conv3x3(256, 128, useBN=useBN, drop_rate=self.drop_rate)
         self.conv1m = conv3x3(128, 64, useBN=useBN, drop_rate=self.drop_rate)
 
-        self.conv0  = nn.Sequential(nn.ReflectionPad2d(1),
-                                    nn.Conv2d(64, self.output_dim, 3, 1, 0),
-                                    nn.Dropout2d(p=self.drop_rate),
-                                    nn.ReLU())
+        self.conv0 = nn.Sequential(
+            nn.ReflectionPad2d(1),
+            nn.Conv2d(64, self.output_dim, 3, 1, 0),
+            nn.Dropout2d(p=self.drop_rate),
+            nn.ReLU(),
+        )
         self.max_pool = nn.MaxPool2d(2)
 
         self.upsample54 = upsample(1024, 512, drop_rate=self.drop_rate)
@@ -73,7 +79,7 @@ class UNet(nn.Module):
         self.upsample32 = upsample(256, 128, drop_rate=self.drop_rate)
         self.upsample21 = upsample(128, 64, drop_rate=self.drop_rate)
 
-		## weight initialization
+        ## weight initialization
         for m in self.modules():
             if isinstance(m, nn.Conv2d) or isinstance(m, nn.ConvTranspose2d):
                 if m.bias is not None:
@@ -105,5 +111,5 @@ class UNet(nn.Module):
 
 def test():
     net = UNet(class_num=2)
-    y = net(torch.randn(3,1,240,240))
+    y = net(torch.randn(3, 1, 240, 240))
     print(y.size())

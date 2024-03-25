@@ -33,7 +33,7 @@ def data_loader(**params, mode):
     else:
         raise ValueError('params["data"] ERROR')
 
-    # Mode Flag Check 
+    # Mode Flag Check
     if mode == 'train':
         shuffle = True
         dataset = TrainSet(**params)
@@ -238,7 +238,7 @@ class TestSet(torch.utils.data.Dataset):
 
 #############################################################
 #                                                           #
-#       Data Transforms Functions                           # 
+#       Data Transforms Functions                           #
 #                                                           #
 #############################################################
 
@@ -762,4 +762,4 @@ def random_num_generator(config, random_state=np.random):
     else:
         print(config)
         raise Exception('unsupported format')
-    return 
+    return
