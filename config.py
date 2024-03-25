@@ -1,7 +1,7 @@
 import torch
 
 # Device Init
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Model output shape Init
 class_num = 2
@@ -18,4 +18,3 @@ enhancing_threshold = 0.02
 enhancing_rate = 0.7
 
 # Data Augmentation parameters
-

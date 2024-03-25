@@ -15,7 +15,6 @@ with open("./config.json") as f:
     params = json.load(f)
 
 
-
 def train(**params):
 
     # Variables and logger Init
@@ -24,19 +23,20 @@ def train(**params):
     get_logger()
 
     # Data Load
-    trainloader = data_loader(**params, mode='train')
-    validloader = data_loader(**params, mode='valid')
+    trainloader = data_loader(**params, mode="train")
+    validloader = data_loader(**params, mode="valid")
 
     # Model Load
-    net, optimizer, best_score, start_epoch =\
-        load_model(**params, class_num=config.class_num, mode='train')
-    log_msg = '\n'.join(['%s Train Start'%(params["model"])])
+    net, optimizer, best_score, start_epoch = load_model(
+        **params, class_num=config.class_num, mode="train"
+    )
+    log_msg = "\n".join(["%s Train Start" % (params["model"])])
     logging.info(log_msg)
 
-    for epoch in range(start_epoch, start_epoch+params["epochs"]):
+    for epoch in range(start_epoch, start_epoch + params["epochs"]):
 
         # Train Model
-        print('\n\n\nEpoch: {}\n<Train>'.format(epoch))
+        print("\n\n\nEpoch: {}\n<Train>".format(epoch))
         net.train(True)
         loss = 0
         lr = params["lr"] * (0.5 ** (epoch // 4))
@@ -53,14 +53,22 @@ def train(**params):
             batch_loss.backward()
             optimizer.step()
             loss += float(batch_loss)
-            progress_bar(idx, len(trainloader), 'Loss: %.5f, Dice-Coef: %.5f'
-                         %((loss/(idx+1)), (1-(loss/(idx+1)))))
-        log_msg = '\n'.join(['Epoch: %d  Loss: %.5f,  Dice-Coef:  %.5f'\
-                         %(epoch, loss/(idx+1), 1-(loss/(idx+1)))])
+            progress_bar(
+                idx,
+                len(trainloader),
+                "Loss: %.5f, Dice-Coef: %.5f"
+                % ((loss / (idx + 1)), (1 - (loss / (idx + 1)))),
+            )
+        log_msg = "\n".join(
+            [
+                "Epoch: %d  Loss: %.5f,  Dice-Coef:  %.5f"
+                % (epoch, loss / (idx + 1), 1 - (loss / (idx + 1)))
+            ]
+        )
         logging.info(log_msg)
 
         # Validate Model
-        print('\n\n<Validation>')
+        print("\n\n<Validation>")
         net.eval()
         for module in net.module.modules():
             if isinstance(module, torch.nn.modules.Dropout2d):
@@ -76,23 +84,32 @@ def train(**params):
             outputs = net(inputs)
             if type(outputs) == tuple:
                 outputs = outputs[0]
-            #outputs = post_process(args, inputs, outputs, save=False)
+            # outputs = post_process(args, inputs, outputs, save=False)
             batch_loss = dice_coef(outputs, targets, backprop=False)
             loss += float(batch_loss)
-            progress_bar(idx, len(validloader), 'Loss: %.5f, Dice-Coef: %.5f'
-                         %((loss/(idx+1)), (1-(loss/(idx+1)))))
-        log_msg = '\n'.join(['Epoch: %d  Loss: %.5f,  Dice-Coef:  %.5f'
-                        %(epoch, loss/(idx+1), 1-(loss/(idx+1)))])
+            progress_bar(
+                idx,
+                len(validloader),
+                "Loss: %.5f, Dice-Coef: %.5f"
+                % ((loss / (idx + 1)), (1 - (loss / (idx + 1)))),
+            )
+        log_msg = "\n".join(
+            [
+                "Epoch: %d  Loss: %.5f,  Dice-Coef:  %.5f"
+                % (epoch, loss / (idx + 1), 1 - (loss / (idx + 1)))
+            ]
+        )
         logging.info(log_msg)
 
         # Save Model
-        loss /= (idx+1)
+        loss /= idx + 1
         score = 1 - loss
         if score > best_score:
             checkpoint = Checkpoint(net, optimizer, epoch, score)
-            checkpoint.save(os.path.join(params["ckpt_root"], params["model"]+'.tar'))
+            checkpoint.save(os.path.join(params["ckpt_root"], params["model"] + ".tar"))
             best_score = score
             print("Saving...")
+
 
 ################### Training Process using Argument Parser #########################################
 # if __name__ == "__main__":

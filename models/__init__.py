@@ -19,46 +19,44 @@ def load_model(params, class_num, mode):
     device = config.device
 
     # Model Init
-    if params["model"] == 'unet':
+    if params["model"] == "unet":
         net = UNet(params["in_channel"], class_num, drop_rate=params["drop_rate"])
-    elif params["model"] == 'neural_ode_convnet':
+    elif params["model"] == "neural_ode_convnet":
         net = neural_ode_convnet()
-    elif params["model"] == 'neural_ode_unet':
+    elif params["model"] == "neural_ode_unet":
         net = neural_ode_unet()
     else:
         raise ValueError('params["model"] ERROR')
 
     # Optimizer Init
-    if mode == 'train':
+    if mode == "train":
         resume = params["resume"]
-        #optimizer = Adam(net.parameters(), lr=args.lr)
-        optimizer = SGD(net.parameters(), lr=params["lr"], momentum=0.9, weight_decay=1e-4)
-    elif mode == 'test':
+        # optimizer = Adam(net.parameters(), lr=args.lr)
+        optimizer = SGD(
+            net.parameters(), lr=params["lr"], momentum=0.9, weight_decay=1e-4
+        )
+    elif mode == "test":
         resume = True
         optimizer = None
     else:
-        raise ValueError('load_model mode ERROR')
+        raise ValueError("load_model mode ERROR")
 
     # Model Load
     if resume:
         checkpoint = Checkpoint(net, optimizer)
-        checkpoint.load(os.path.join(params["ckpt_root"], params["model"]+'.tar'))
+        checkpoint.load(os.path.join(params["ckpt_root"], params["model"] + ".tar"))
         best_score = checkpoint.best_score
-        start_epoch = checkpoint.epoch+1
+        start_epoch = checkpoint.epoch + 1
     else:
         best_score = 0
         start_epoch = 1
 
-    if device == 'cuda':
+    if device == "cuda":
         net.cuda()
         net = torch.nn.DataParallel(net)
-        torch.backends.cudnn.benchmark=True
+        torch.backends.cudnn.benchmark = True
 
     return net, optimizer, best_score, start_epoch
-
-
-
-
 
 
 ####################### Old Version ################################
